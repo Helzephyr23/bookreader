@@ -246,14 +246,20 @@ export const useReader = create<ReaderState>((set, get) => ({
               /* ignore */
             }
           }
+          if (pageNumber === 0 && it.url) {
+            // some PDFs have URLs in TOC; ignore for page jumping
+          }
           const children = Array.isArray(it.items) && it.items.length > 0 ? await convert(it.items, depth + 1) : undefined
-          result.push({
-            title: String(it.title ?? ''),
-            pageNumber,
-            depth,
-            children,
-            dest: it.dest,
-          })
+          const title = String(it.title ?? '').trim()
+          if (title || children?.length) {
+            result.push({
+              title: title || 'Untitled',
+              pageNumber,
+              depth,
+              children,
+              dest: it.dest ?? it,
+            })
+          }
         }
         return result
       }

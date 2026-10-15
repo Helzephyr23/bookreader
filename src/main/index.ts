@@ -97,7 +97,7 @@ function createWindow() {
             canvases: document.querySelectorAll('canvas').length,
             bookmarkOn: !!document.querySelector('.tb-mark.is-on'),
             bookmarksText: (document.querySelector('.tb-marks')?.textContent || '').trim(),
-            panelOpen: !!document.querySelector('.bookmarks-panel'),
+            panelOpen: !!document.querySelector('.bookmarks-panel') || !!document.querySelector('.toc-panel'),
           })`,
         )
         console.log('[smoke]', info)

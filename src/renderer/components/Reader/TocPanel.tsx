@@ -7,19 +7,24 @@ interface TocNodeProps {
 
 function TocNode({ item }: TocNodeProps) {
   const jump = useReader((s) => s.jumpToDest)
+  const currentPage = useReader((s) => s.currentPage)
+  const isActive = item.pageNumber > 0 && Math.abs(item.pageNumber - currentPage) < 2
 
   return (
-    <div className="toc-node" style={{ paddingLeft: `${item.depth * 16}px` }}>
+    <div className="toc-node">
       <button
-        className="toc-item"
-        onClick={() => void jump(item.dest)}
+        className={`toc-item ${isActive ? 'is-active' : ''}`}
+        onClick={() => void jump(item.dest ?? item)}
         title={item.title}
       >
-        <span className="toc-title">{item.title || 'Untitled'}</span>
+        <span className="toc-title" style={{ paddingLeft: `${item.depth * 12}px` }}>
+          {item.depth > 0 && '· '.repeat(item.depth)}
+          {item.title}
+        </span>
         {item.pageNumber > 0 && <span className="toc-page">{item.pageNumber}</span>}
       </button>
       {item.children?.map((c, i) => (
-        <TocNode key={`${c.title}-${i}`} item={c} />
+        <TocNode key={`${c.title}-${i}-${c.pageNumber}`} item={c} />
       ))}
     </div>
   )
