@@ -22,7 +22,7 @@ export function BookmarksPanel() {
   const bookmarks = book?.bookmarks ?? []
 
   return (
-    <aside className="bookmarks-panel">
+    <aside className={`bookmarks-panel ${open ? 'open' : ''}`}>
       <header className="bm-head">
         <span>Bookmarks</span>
         <button className="bm-close" onClick={() => setOpen(false)} title="Close">

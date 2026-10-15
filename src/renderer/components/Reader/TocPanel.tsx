@@ -18,7 +18,6 @@ function TocNode({ item }: TocNodeProps) {
         title={item.title}
       >
         <span className="toc-title" style={{ paddingLeft: `${item.depth * 12}px` }}>
-          {item.depth > 0 && '· '.repeat(item.depth)}
           {item.title}
         </span>
         {item.pageNumber > 0 && <span className="toc-page">{item.pageNumber}</span>}
@@ -41,7 +40,7 @@ export function TocPanel() {
   if (!open) return null
 
   return (
-    <aside className="bookmarks-panel toc-panel">
+    <aside className={`bookmarks-panel toc-panel ${open ? 'open' : ''}`}>
       <header className="bm-head">
         <span>Table of Contents</span>
         <button className="bm-close" onClick={() => setOpen(false)} title="Close">
