@@ -1,0 +1,38 @@
+appId: com.bookreader.app
+productName: BookReader
+copyright: Copyright © 2026 BookReader
+directories:
+  output: release
+  buildResources: build
+files:
+  - dist/**
+  - dist-electron/**
+  - package.json
+asar: true
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: portable
+      arch:
+        - x64
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: BookReader
+linux:
+  target:
+    - AppImage
+    - deb
+  category: Office
+  synopsis: Cozy desktop PDF book reader
+  maintainer: BookReader
+  desktop:
+    entry:
+      Name: BookReader
+      Comment: Read PDFs like a real book
+      Categories: Office;Viewer;
